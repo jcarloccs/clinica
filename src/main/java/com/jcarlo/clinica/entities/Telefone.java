@@ -18,6 +18,9 @@ public class Telefone implements Serializable {
     private Long id;
     private String telefone;
 
+    public Telefone() {
+    }
+
     public Telefone(Long id, String telefone) {
         this.id = id;
         this.telefone = telefone;

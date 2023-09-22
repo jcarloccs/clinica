@@ -20,7 +20,6 @@ public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(nullable = false)
     private Integer cpf;
 
     @Column(nullable = false)
@@ -35,6 +34,9 @@ public class Paciente implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Exame> exames = new ArrayList<>();
+
+    public Paciente() {
+    }
 
     public Paciente(Integer cpf, String nome, Date dataNasc, List<Telefone> telefones, Endereco endereco,
             List<Exame> exames) {

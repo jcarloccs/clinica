@@ -29,7 +29,7 @@ classDiagram
 
     class Exame {
         - id: int
-        - exame: string
+        - exame: NomeExame
         - valor: float
         - realizado: boolean
     }

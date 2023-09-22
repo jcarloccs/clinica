@@ -1,13 +1,16 @@
 package com.jcarlo.clinica.services;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jcarlo.clinica.entities.Paciente;
+import com.jcarlo.clinica.repositories.EnderecoRepository;
+import com.jcarlo.clinica.repositories.ExameRepository;
 import com.jcarlo.clinica.repositories.PacienteRepository;
+import com.jcarlo.clinica.repositories.TelefoneRepository;
 
 @Service
 public class PacienteService {
@@ -15,33 +18,63 @@ public class PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+	@Autowired
+    private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private ExameRepository exameRepository;
+
+    @Autowired
+    private TelefoneRepository telefoneRepository;
+
     public List<Paciente> findAll() {
 		return pacienteRepository.findAll();
 	}
 	
 	public Paciente findById(Integer cpf) {
-		Optional<Paciente> obj = pacienteRepository.findById(cpf);
-		return obj.get();
+		return pacienteRepository.findById(cpf).orElseThrow(NoSuchElementException::new);
 	}
 	
 	public Paciente insert(Paciente obj) {
+		if(pacienteRepository.existsById(obj.getCpf())) {
+			throw new IllegalArgumentException("Paciente já existe");
+		}
+		
+		enderecoRepository.save(obj.getEndereco());
+		exameRepository.save(obj.getExames().get(0));
+		telefoneRepository.save(obj.getTelefones().get(0));
+
 		return pacienteRepository.save(obj);
 	}
 	
 	public void delete(Integer cpf) {
+		if(!pacienteRepository.existsById(cpf)) {
+			throw new IllegalArgumentException("Paciente não cadastrado");
+		}
 		pacienteRepository.deleteById(cpf);
 	}
 	
 	public Paciente update(Integer cpf, Paciente obj) {
+		if(!pacienteRepository.existsById(cpf)) {
+			throw new IllegalArgumentException("Paciente não cadastrado");
+		}
         Paciente entity = pacienteRepository.getReferenceById(cpf);
         updateData(entity, obj);
         return pacienteRepository.save(entity);
 	}
-
+/*
+	public Paciente insertExames(Integer cpf, Exame exame) {
+		if(!pacienteRepository.existsById(cpf)) {
+			throw new IllegalArgumentException("Paciente não cadastrado");
+		}
+        Paciente entity = pacienteRepository.getReferenceById(cpf);
+		entity.getExames().add(exame);
+		return pacienteRepository.save(entity);
+	}
+*/
 	private void updateData(Paciente entity, Paciente obj) {
 		entity.setEndereco(obj.getEndereco());
 		entity.setTelefones(obj.getTelefones());
-		entity.setExames(obj.getExames());
 	}
 
 }

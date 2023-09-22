@@ -19,18 +19,23 @@ public class Exame implements Serializable {
     private String nomeExame;
     private Double valor;
     private Boolean realizado;
-    
+        
+    public Exame() {
+    }
+
     public Exame(Long id, String nomeExame, Double valor, Boolean realizado) {
         this.id = id;
         this.nomeExame = nomeExame;
         this.valor = valor;
         this.realizado = realizado;
     }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
+/*
+    public Exame(String nomeExame, Double valor, Boolean realizado) {
+        this.nomeExame = nomeExame;
+        this.valor = valor;
+        this.realizado = realizado;
     }
-
+*/
     public Long getId() {
         return id;
     }
@@ -92,7 +97,5 @@ public class Exame implements Serializable {
     public String toString() {
         return "Exame [id=" + id + ", nomeExame=" + nomeExame + ", valor=" + valor + ", realizado=" + realizado + "]";
     }
-
-    
 
 }
