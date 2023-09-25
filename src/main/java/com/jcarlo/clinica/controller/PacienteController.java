@@ -59,11 +59,11 @@ public class PacienteController {
 		obj = pacienteService.update(cpf, obj);
 		return ResponseEntity.ok().body(obj);
 	}
-/*
+
     @PutMapping(value = "/exame/{cpf}")
 	public ResponseEntity<Paciente> insertExame(@PathVariable Integer cpf, @RequestBody Exame obj) {
 		Paciente paciente = pacienteService.insertExames(cpf, obj);
 		return ResponseEntity.ok().body(paciente);
 	}
-*/
+
 }

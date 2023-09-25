@@ -6,7 +6,9 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jcarlo.clinica.entities.Exame;
 import com.jcarlo.clinica.entities.Paciente;
+import com.jcarlo.clinica.entities.Telefone;
 import com.jcarlo.clinica.repositories.EnderecoRepository;
 import com.jcarlo.clinica.repositories.ExameRepository;
 import com.jcarlo.clinica.repositories.PacienteRepository;
@@ -41,8 +43,12 @@ public class PacienteService {
 		}
 		
 		enderecoRepository.save(obj.getEndereco());
-		exameRepository.save(obj.getExames().get(0));
-		telefoneRepository.save(obj.getTelefones().get(0));
+		for (Exame exame : obj.getExames()) {
+			exameRepository.save(exame);
+		}
+		for (Telefone telefone : obj.getTelefones()) {
+			telefoneRepository.save(telefone);
+		}
 
 		return pacienteRepository.save(obj);
 	}
@@ -62,16 +68,17 @@ public class PacienteService {
         updateData(entity, obj);
         return pacienteRepository.save(entity);
 	}
-/*
+
 	public Paciente insertExames(Integer cpf, Exame exame) {
 		if(!pacienteRepository.existsById(cpf)) {
 			throw new IllegalArgumentException("Paciente não cadastrado");
 		}
         Paciente entity = pacienteRepository.getReferenceById(cpf);
 		entity.getExames().add(exame);
+		exameRepository.save(exame);
 		return pacienteRepository.save(entity);
 	}
-*/
+
 	private void updateData(Paciente entity, Paciente obj) {
 		entity.setEndereco(obj.getEndereco());
 		entity.setTelefones(obj.getTelefones());
