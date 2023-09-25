@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.jcarlo.clinica.entities.Exame;
 import com.jcarlo.clinica.entities.Paciente;
 import com.jcarlo.clinica.entities.Telefone;
+import com.jcarlo.clinica.entities.ViaCep;
 import com.jcarlo.clinica.repositories.EnderecoRepository;
 import com.jcarlo.clinica.repositories.ExameRepository;
 import com.jcarlo.clinica.repositories.PacienteRepository;
@@ -29,6 +30,9 @@ public class PacienteService {
     @Autowired
     private TelefoneRepository telefoneRepository;
 
+	@Autowired
+	private ViaCepService viaCepService;
+
     public List<Paciente> findAll() {
 		return pacienteRepository.findAll();
 	}
@@ -41,11 +45,24 @@ public class PacienteService {
 		if(pacienteRepository.existsById(obj.getCpf())) {
 			throw new IllegalArgumentException("Paciente já existe");
 		}
+
+		if (obj.getEndereco().getCep().toString().length() == 8) {
+			ViaCep viaCep = viaCepService.cep(obj.getEndereco().getCep().toString());
 		
+			if (viaCep.getErro() == null) {
+				obj.getEndereco().setCidade(viaCep.getLocalidade());
+				obj.getEndereco().setEstado(viaCep.getUf());
+				obj.getEndereco().setRua(viaCep.getLogradouro());
+				obj.getEndereco().setBairro(viaCep.getBairro());
+				obj.getEndereco().setComplemento(viaCep.getComplemento());
+			}
+		}
 		enderecoRepository.save(obj.getEndereco());
+		
 		for (Exame exame : obj.getExames()) {
 			exameRepository.save(exame);
 		}
+
 		for (Telefone telefone : obj.getTelefones()) {
 			telefoneRepository.save(telefone);
 		}

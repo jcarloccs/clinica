@@ -34,7 +34,7 @@ public class TestConfig implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
 
-        Endereco endereco = new Endereco(null, 10, "b", "c", "d", "e");
+        Endereco endereco = new Endereco(null, 405, "b", "c", "d", "e", "f", "g");
         Exame exame = new Exame(null, "x", 20.6, true);
         Telefone telefone = new Telefone(null, "876596");
 
@@ -47,7 +47,6 @@ public class TestConfig implements CommandLineRunner{
 
         pacienteRepository.save(paciente);
 
-        System.out.println("oi cara");
     }
     
 }

@@ -5,11 +5,11 @@
 ```mermaid
 classDiagram
     class Paciente {
-        - id: int
-        - nomePaciente: string
+        - cpf: int
+        - nome: string
         - dataNasc: Date
         - endereco: Endereco
-        - tel: Telefone[]
+        - telefones: Telefone[]
         - exames: Exame[]
     }
 
@@ -25,11 +25,13 @@ classDiagram
         - numero: string
         - cidade: string
         - estado: string
+        - bairro: string
+        - complemento: string
     }
 
     class Exame {
         - id: int
-        - exame: NomeExame
+        - exame: string
         - valor: float
         - realizado: boolean
     }

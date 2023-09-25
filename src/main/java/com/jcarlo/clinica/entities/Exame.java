@@ -29,13 +29,7 @@ public class Exame implements Serializable {
         this.valor = valor;
         this.realizado = realizado;
     }
-/*
-    public Exame(String nomeExame, Double valor, Boolean realizado) {
-        this.nomeExame = nomeExame;
-        this.valor = valor;
-        this.realizado = realizado;
-    }
-*/
+    
     public Long getId() {
         return id;
     }

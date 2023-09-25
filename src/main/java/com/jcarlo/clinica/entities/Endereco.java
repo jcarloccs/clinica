@@ -21,17 +21,22 @@ public class Endereco implements Serializable {
     private String numero;
     private String cidade;
     private String estado;
+    private String bairro;
+    private String complemento;
     
     public Endereco() {
     }
 
-    public Endereco(Long id, Integer cep, String rua, String numero, String cidade, String estado) {
+    public Endereco(Long id, Integer cep, String rua, String numero, String cidade, String estado, String bairro,
+            String complemento) {
         this.id = id;
         this.cep = cep;
         this.rua = rua;
         this.numero = numero;
         this.cidade = cidade;
         this.estado = estado;
+        this.bairro = bairro;
+        this.complemento = complemento;
     }
 
     public Long getId() {
@@ -82,6 +87,22 @@ public class Endereco implements Serializable {
         this.estado = estado;
     }
 
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -110,7 +131,7 @@ public class Endereco implements Serializable {
     @Override
     public String toString() {
         return "Endereco [id=" + id + ", cep=" + cep + ", rua=" + rua + ", numero=" + numero + ", cidade=" + cidade
-                + ", estado=" + estado + "]";
+                + ", estado=" + estado + ", bairro=" + bairro + ", complemento=" + complemento + "]";
     }
-
+    
 }
