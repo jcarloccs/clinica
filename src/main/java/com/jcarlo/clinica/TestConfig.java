@@ -34,21 +34,6 @@ public class TestConfig implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
 
-        Endereco endereco = new Endereco(null, 405, "b", "c", "d", "e", "f", "g");
-        Exame exame = new Exame(null, "x", 20.6, true);
-        Telefone telefone = new Telefone(null, "876596");
-
-        enderecoRepository.save(endereco);
-        exameRepository.save(exame);
-        telefoneRepository.save(telefone);
-
-        Paciente paciente = new Paciente("34463",
-        "eu", new Date(), Arrays.asList(telefone), endereco, Arrays.asList(exame));
-
-        pacienteRepository.save(paciente);
-
-        System.out.println("oi cara");
-
     }
     
 }
