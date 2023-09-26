@@ -1,11 +1,22 @@
-# Projeto de cadastro de pacientes de uma clínica
+# Projeto de cadastro de pacientes de uma clínica em RestFul API
+
+## Tecnologias utilizadas
+* Java 17 LTS
+* Swagger OpenAPI
+* OpenFeign
+* Spring boot
+* JPA
+* Conector PostgreSQL
+
+## Link do projeto rodando no Railway
+https://clinica-production-6136.up.railway.app/swagger-ui/index.html
 
 ## Diagrama de classes
 
 ```mermaid
 classDiagram
     class Paciente {
-        - cpf: int
+        - cpf: string
         - nome: string
         - dataNasc: Date
         - endereco: Endereco
