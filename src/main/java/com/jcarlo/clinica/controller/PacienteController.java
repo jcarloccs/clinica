@@ -33,7 +33,7 @@ public class PacienteController {
 	}
 	
 	@GetMapping(value = "/{cpf}")
-	public ResponseEntity<Paciente> findById(@PathVariable Integer cpf) {
+	public ResponseEntity<Paciente> findById(@PathVariable String cpf) {
 		Paciente obj = pacienteService.findById(cpf);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -49,19 +49,19 @@ public class PacienteController {
 	}
 	
 	@DeleteMapping(value = "/{cpf}")
-	public ResponseEntity<Void> delete(@PathVariable Integer cpf) {
+	public ResponseEntity<Void> delete(@PathVariable String cpf) {
 		pacienteService.delete(cpf);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@PutMapping(value = "/{cpf}")
-	public ResponseEntity<Paciente> update(@PathVariable Integer cpf, @RequestBody Paciente obj) {
+	public ResponseEntity<Paciente> update(@PathVariable String cpf, @RequestBody Paciente obj) {
 		obj = pacienteService.update(cpf, obj);
 		return ResponseEntity.ok().body(obj);
 	}
 
     @PutMapping(value = "/exame/{cpf}")
-	public ResponseEntity<Paciente> insertExame(@PathVariable Integer cpf, @RequestBody Exame obj) {
+	public ResponseEntity<Paciente> insertExame(@PathVariable String cpf, @RequestBody Exame obj) {
 		Paciente paciente = pacienteService.insertExames(cpf, obj);
 		return ResponseEntity.ok().body(paciente);
 	}

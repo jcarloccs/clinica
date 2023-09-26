@@ -37,7 +37,7 @@ public class PacienteService {
 		return pacienteRepository.findAll();
 	}
 	
-	public Paciente findById(Integer cpf) {
+	public Paciente findById(String cpf) {
 		return pacienteRepository.findById(cpf).orElseThrow(NoSuchElementException::new);
 	}
 	
@@ -70,14 +70,14 @@ public class PacienteService {
 		return pacienteRepository.save(obj);
 	}
 	
-	public void delete(Integer cpf) {
+	public void delete(String cpf) {
 		if(!pacienteRepository.existsById(cpf)) {
 			throw new IllegalArgumentException("Paciente não cadastrado");
 		}
 		pacienteRepository.deleteById(cpf);
 	}
 	
-	public Paciente update(Integer cpf, Paciente obj) {
+	public Paciente update(String cpf, Paciente obj) {
 		if(!pacienteRepository.existsById(cpf)) {
 			throw new IllegalArgumentException("Paciente não cadastrado");
 		}
@@ -86,7 +86,7 @@ public class PacienteService {
         return pacienteRepository.save(entity);
 	}
 
-	public Paciente insertExames(Integer cpf, Exame exame) {
+	public Paciente insertExames(String cpf, Exame exame) {
 		if(!pacienteRepository.existsById(cpf)) {
 			throw new IllegalArgumentException("Paciente não cadastrado");
 		}

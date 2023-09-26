@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -20,7 +21,7 @@ public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private Integer cpf;
+    private String cpf;
 
     @Column(nullable = false)
     private String nome;
@@ -38,8 +39,7 @@ public class Paciente implements Serializable {
     public Paciente() {
     }
 
-    public Paciente(Integer cpf, String nome, Date dataNasc, List<Telefone> telefones, Endereco endereco,
-            List<Exame> exames) {
+    public Paciente(String cpf, String nome, Date dataNasc, List<Telefone> telefones, Endereco endereco, List<Exame> exames) {
         this.cpf = cpf;
         this.nome = nome;
         this.dataNasc = dataNasc;
@@ -48,11 +48,11 @@ public class Paciente implements Serializable {
         this.exames = exames;
     }
 
-    public Integer getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -97,34 +97,27 @@ public class Paciente implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Paciente paciente = (Paciente) o;
+        return Objects.equals(cpf, paciente.cpf) && Objects.equals(nome, paciente.nome) && Objects.equals(dataNasc, paciente.dataNasc) && Objects.equals(telefones, paciente.telefones) && Objects.equals(endereco, paciente.endereco) && Objects.equals(exames, paciente.exames);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Paciente other = (Paciente) obj;
-        if (cpf == null) {
-            if (other.cpf != null)
-                return false;
-        } else if (!cpf.equals(other.cpf))
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(cpf, nome, dataNasc, telefones, endereco, exames);
     }
 
     @Override
     public String toString() {
-        return "Paciente [cpf=" + cpf + ", nome=" + nome + ", dataNasc=" + dataNasc + ", telefones=" + telefones
-                + ", endereco=" + endereco + ", exames=" + exames + "]";
+        return "Paciente{" +
+                "cpf='" + cpf + '\'' +
+                ", nome='" + nome + '\'' +
+                ", dataNasc=" + dataNasc +
+                ", telefones=" + telefones +
+                ", endereco=" + endereco +
+                ", exames=" + exames +
+                '}';
     }
-
 }
